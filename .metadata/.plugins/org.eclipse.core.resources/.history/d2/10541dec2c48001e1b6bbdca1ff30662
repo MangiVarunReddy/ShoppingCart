@@ -1,0 +1,19 @@
+package com.shoppingcart.connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBCon {
+
+	private static Connection connection=null;
+	
+	public static Connection getConnection() {
+		
+		if(connection==null) {
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommerce_cart");
+		}
+		
+		return connection;
+		
+	}
+}

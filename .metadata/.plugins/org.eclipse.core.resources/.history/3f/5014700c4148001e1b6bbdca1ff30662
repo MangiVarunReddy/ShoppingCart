@@ -1,0 +1,10 @@
+package com.shoppingcart.dao;
+
+public class UserDao {
+
+	public void userLogin(String email, String password) {
+		
+		
+		
+	}
+}

@@ -1,0 +1,102 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="com.shoppingcart.connection.DBCon"%>
+<%@ page import="com.shoppingcart.model.*"%>
+<%@ page import="com.shoppingcart.dao.*"%>
+<%@ page import="java.util.*"%>
+<%
+User auth = (User) request.getSession().getAttribute("auth");
+if (auth != null) {
+	request.setAttribute("auth", auth);
+}	
+	ArrayList<Cart> session_cart_list=(ArrayList<Cart>)session.getAttribute("cart-list");
+	List<Cart> cartProduct=null;
+	if(session_cart_list !=null){
+		ProductDao pd=new ProductDao(DBCon.getConnection());
+		
+		cartProduct=pd.getCartProducts(session_cart_list);
+		double total=pd.getTotalCartPrice(session_cart_list);
+	request.setAttribute("cart_list",session_cart_list);
+	
+	request.setAttribute("total",total);
+}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Shopping Cart</title>
+<%@include file="/includes/head.jsp"%>
+<style type="text/css">
+.table tbody td{
+vartical-align:middle;
+}
+.btn-incre,.btn-decre{
+box-shodow:none;
+font-size:25px;
+}
+
+.frm{
+margin-top:-10px;
+}
+
+
+</style>
+</head>
+<body>
+	<%@include file="/includes/navbar.jsp"%>
+
+	<div class="container">
+		<div class="d-flex py-3">
+			<h3>Total Price: $${(total>0)?total:0}</h3>
+			<a class="mx-3 btn btn-primary" href="#">Check Out</a>
+		</div>
+
+		<table class="table table-light">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Category</th>
+					<th scope="col">Price</th>
+					<th scope="col">Buy Now</th>
+					<th scope="col">Product</th>
+					<th scope="col">Cancel</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% if(session_cart_list!=null){
+				for(Cart n:cartProduct){%>
+					<tr>
+					<td><%=n.getName() %></td>
+					<td><%=n.getCategory() %></td>
+					<td><%=n.getPrice()%>$</td>
+					<td>
+						<form action="" method="post" class="form-inline frm">
+							<input type="hidden" name="id" value="<%=n.getId() %>" class="form-input">
+							<div class="form-group d-flex justify-content-between">
+								<a class="btn btn-sm btn-decre"><i
+									class="fas fa-minus-square"></i></a> <input type="text"
+									name="quantity" value="1" class="form-control" readonly>
+								<a class="btn btn-sm btn-incre"><i
+									class="fas fa-plus-square"></i></a>
+							</div>
+						</form>
+
+					</td>
+					<td>
+					<img src="product-images/<%=n.getImage() %>" alt="Card img cap" style="width: 40px; height: 50px; margin:-15px";></td>
+					
+					<td><a class="btn btn-sm btn-danger">Remove</a></td>
+				</tr>
+				<%}
+				
+			}
+				%>
+				
+			</tbody>
+		</table>
+	</div>
+
+	<%@include file="/includes/footer.jsp"%>
+</body>
+</html>

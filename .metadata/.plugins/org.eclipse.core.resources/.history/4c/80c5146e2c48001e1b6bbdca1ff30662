@@ -1,0 +1,6 @@
+package com.shoppingcart.connection;
+
+public class DBCon {
+
+	private static Connection connection=null;
+}

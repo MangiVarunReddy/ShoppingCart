@@ -1,0 +1,114 @@
+package com.shoppingcart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.shoppingcart.model.Cart;
+import com.shoppingcart.model.Product;
+
+public class ProductDao {
+
+	private Connection con;
+	private PreparedStatement ps;
+	private String query;
+	private ResultSet rs;
+
+	public ProductDao(Connection con) {
+		super();
+		this.con = con;
+	}
+
+	public List<Product> getAllProducts() {
+		List<Product> products = new ArrayList<Product>();
+		try {
+			query = "select * from products";
+			ps = this.con.prepareStatement(query);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Product p = new Product();
+				p.setId(rs.getInt("id"));
+				p.setName(rs.getString("name"));
+				p.setCategory(rs.getString("category"));
+				p.setPrice(rs.getDouble("price"));
+				p.setImage(rs.getString("image"));
+				products.add(p);
+
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return products;
+
+	}
+
+	public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
+
+		List<Cart> products = new ArrayList<>();
+
+		try {
+
+			if (cartList.size() > 0) {
+				for (Cart n : cartList) {
+					query = "select * from products where id=?";
+					ps = this.con.prepareStatement(query);
+					ps.setInt(1, n.getId());
+					rs = ps.executeQuery();
+
+					while (rs.next()) {
+						Cart c = new Cart();
+						c.setId(rs.getInt("id"));
+						c.setName(rs.getString("name"));
+						c.setCategory(rs.getString("category"));
+						c.setPrice(rs.getDouble("price")*n.getQuantity());
+						c.setImage(rs.getString("image"));
+						c.setQuantity(n.getQuantity());
+						products.add(c);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return products;
+
+	}
+	
+	public double getTotalCartPrice(ArrayList<Cart> cartList) {
+		
+		double sum=0;
+		try {
+			if(cartList.size()>0) {
+				for(Cart item:cartList) {
+					query="select * from products where id=?";
+					ps=this.con.prepareStatement(query);
+					ps.setInt(1, item.getId());
+					rs=ps.executeQuery();
+					
+					while(rs.next()) {
+						sum+=rs.getDouble("price")*item.getQuantity();
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			
+		}
+		return sum;
+		
+	}
+	
+	public Product getSingleProduct(int id) {
+		
+	}
+
+}

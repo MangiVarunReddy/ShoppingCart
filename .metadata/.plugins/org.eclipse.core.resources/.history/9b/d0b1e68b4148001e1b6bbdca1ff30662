@@ -1,0 +1,29 @@
+package com.shoppingcart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import com.shoppingcart.model.User;
+
+public class UserDao {
+
+	private Connection con;
+	private String query;
+	private PreparedStatement pst;
+	private ResultSet rs;
+	
+	public UserDao(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public User userLogin(String email, String password) {
+		
+		User user=null;
+		
+		return user;
+		
+		
+		
+	}
+}

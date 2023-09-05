@@ -1,0 +1,5 @@
+INDEX VERSION 1.134
+E:\Eclipse_WorkSpace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\387547533.index
+\ShoppingCart\src\main\java
+E:\Eclipse_WorkSpace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2454177800.index
+\ShoppingCart\src\main\java

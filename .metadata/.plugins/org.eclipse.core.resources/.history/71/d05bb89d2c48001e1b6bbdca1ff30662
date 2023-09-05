@@ -1,0 +1,12 @@
+package com.shoppingcart.connection;
+
+import java.sql.Connection;
+
+public class DBCon {
+
+	private static Connection connection=null;
+	
+	public static Connection getConnection() {
+		
+	}
+}

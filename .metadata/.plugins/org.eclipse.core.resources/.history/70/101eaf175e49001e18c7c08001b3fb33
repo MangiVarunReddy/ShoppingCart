@@ -1,0 +1,57 @@
+package com.shoppingcart.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.shoppingcart.model.Product;
+
+public class ProductDao {
+
+	private Connection con;
+	private PreparedStatement ps;
+	private String query;
+	private ResultSet rs;
+	
+	
+	
+	
+	public ProductDao(Connection con) {
+		super();
+		this.con = con;
+	}
+
+
+
+
+	public List<Product> getAllProducts(){
+		List<Product> products=new ArrayList<Product>();
+		try {
+			query="select * from products";
+			ps=this.con.prepareStatement(query);
+			rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				Product p=new Product();
+				p.setId(rs.getInt(1));
+				p.setName(rs.getString(2));
+				p.setCategory(rs.getString(3));
+				p.setPrice(rs.getString(rs.getString(4)));
+				p.setPrice(rs.getString(5));
+				products.add(p);
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return products;
+		
+	}
+	
+}

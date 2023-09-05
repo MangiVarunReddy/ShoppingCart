@@ -1,0 +1,5 @@
+package com.shoppingcart.connection;
+
+public class DBCon {
+
+}

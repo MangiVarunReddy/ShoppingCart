@@ -1,0 +1,17 @@
+package com.shoppingcart.dao;
+
+import java.sql.Connection;
+
+public class UserDao {
+
+	public UserDao(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public void userLogin(String email, String password) {
+		
+		
+		
+	}
+}

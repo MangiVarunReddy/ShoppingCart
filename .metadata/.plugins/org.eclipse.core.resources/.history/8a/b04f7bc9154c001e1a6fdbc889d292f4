@@ -1,0 +1,47 @@
+package com.shoppingcary.servlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.shoppingcart.model.User;
+
+/**
+ * Servlet implementation class CheckOutServlet
+ */
+@WebServlet("/cart-check-out")
+public class CheckOutServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+			PrintWriter out=response.getWriter();
+			User auth = (User) request.getSession().getAttribute("auth");
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyy-MM-dd");
+			Date date = new Date();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
